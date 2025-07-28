@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const {PORT} = require("./config/serverConfig");
+const { sendBasicEmail } = require("./services/email-service");
 
 
 const prepareAndStartServer = async()=>{
@@ -15,6 +16,13 @@ const prepareAndStartServer = async()=>{
 
         console.log("Reminder Service started at port: ",PORT);
     })
+
+        //     await sendBasicEmail(
+        //     "airlineservice10128@gmail.com",
+        //     "shaktikumar3466@gmail.com",
+        //     "Testing message",
+        //     "hii how are you this message is from airlineservice for the testing purpose"
+        // )
 }
 
 prepareAndStartServer();
