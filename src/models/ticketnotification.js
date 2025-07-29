@@ -18,6 +18,10 @@ module.exports = (sequelize, DataTypes) => {
       type:DataTypes.STRING,
       allowNull:false
     },
+    content:{
+      type: DataTypes.STRING,
+      allowNull:false
+    },
     recepientEmail: {
       type:DataTypes.STRING,
       allowNull:false
@@ -25,6 +29,7 @@ module.exports = (sequelize, DataTypes) => {
     status: {
       type:DataTypes.ENUM,
       allowNull:false,
+      defaultValue:"PENDING",
       values:["PENDING","SUCCESS","FAILED"],
     },
     notificationTime: {

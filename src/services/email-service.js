@@ -1,20 +1,40 @@
 const {sender} = require("../config/emailConfig");
+const { TicketRepository } = require("../repository/ticket-repository");
 
-const sendBasicEmail = (mailFrom,mailTo,mailSubject,mailBody) =>{
-    try {
-        // we will not be waiting for this to be resolve coz, it might take some time even minutes
-        sender.sendMail({
-            from:mailFrom,
-            to:mailTo,
-            subject:mailSubject,
-            text:mailBody
-        })
-    } catch (error) {
-        console.log("Error while sending the mail to: ", mailTo);
-        return;
+
+class EmailService{
+    constructor(){
+        this.ticketRepository = new TicketRepository();
     }
-};
+    async fetchPendingEmail(){
+        try {
+            return await this.ticketRepository.get({status:"PENDING"});
+        } catch (error) {
+            console.log("Error while fetching the pending emails");
+        }
+    }
+
+    async createNotification(data){
+        try {
+            const response = await this.ticketRepository.create(data);
+            return response;
+        } catch (error) {
+            console.log("Error while creating the notification");
+            throw error;
+        }
+    }
+
+    async updateTicket(ticketId,data){
+        try {
+            await this.ticketRepository.updateTicket(ticketId,data);
+            return true;
+        } catch (error) {
+            console.log("Error while updating the status")
+        }
+    }
+}
+
 
 module.exports = {
-    sendBasicEmail
+    EmailService
 }
