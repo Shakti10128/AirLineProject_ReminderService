@@ -27,11 +27,8 @@ const setupJobs = ()=>{
                 else{
                     console.log("email send successfully");
                     console.log(data);
-                    // mail sent successfully
-                    if(data.accepted.length > 0) {
                         email.status = "SUCCESS";
                         await emailService.updateTicket(email.id,{"status":"SUCCESS"});
-                    }
                 }
             })
         })
